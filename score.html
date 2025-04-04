@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scoreboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <br>
+    <h1 class="top-heading">Rock Paper Scissors</h1> 
+    <br>
+    <br>
+    <div class="container">
+        <h1>SCORE BOARD!</h1>
+        <br>
+        <h3><b>User Wins:</b>{{ user_score }}</h3>
+        <br>
+        <h3><b>Computer Wins:</b> {{ computer_score }}</h3>
+        <br>
+        <h3><b>Draws:</b> {{ draws }}</h3>
+        <br>
+        <button id="resetBtn">Reset Score</button>
+    
+    <script>
+        document.getElementById('resetBtn').addEventListener('click', function(){
+            fetch('/reset', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success){
+                        window.location.reload();
+                    } else {
+                        alert("Failed to reset score.");
+                    }
+                })
+                .catch(error => console.error("Error resetting the score:", error));
+        });
+    </script>
+    <h4><a href="/">Back to Game</a></h4>
+    </div>
+</body>
+</html>
